@@ -58,6 +58,30 @@ describe Vandelay::Buildable do
         })
       end
     end
+
+    context 'subclassed builders' do
+      let(:subclassed_builder) {
+        class SubBuilder < builder_class
+          composed_of :stereo, default: :sirius_xm
+        end
+
+        SubBuilder
+      }
+
+      it 'does not override defaults from subclass' do
+        expect(car_builder.build).to eq({
+          doors: nil,
+          engine: nil,
+          stereo: :cassette_player
+        })
+
+        expect(subclassed_builder.new.build).to eq({
+          doors: nil,
+          engine: nil,
+          stereo: :sirius_xm
+        })
+      end
+    end
   end
 end
 
