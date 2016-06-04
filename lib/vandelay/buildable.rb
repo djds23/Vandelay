@@ -18,14 +18,14 @@ module Vandelay
       # Returns a hash of all the attributes & their set values.
       # Best to practice would be to override this for your required formats.
       #
-      # def build
-      #   base = super
+      #   def build
+      #     base = super
       #
-      #   {
-      #     extra_fields: 'my_values',
-      #     buildable: base
-      #   }
-      # end
+      #     {
+      #       extra_fields: 'my_values',
+      #       buildable: base
+      #     }
+      #   end
       #
       # @return [Hash] filled with attributes and set values
       def build
@@ -44,8 +44,12 @@ module Vandelay
 
     module ClassMethods
 
+      # Method used to declare fields which will get implemented in the builder.
+      # Accepts a default argument that will be used if no value is set.
+      #
       # @param [Array] attributes fields that ought to be set on the builder
       # @option [Object] default
+      # @return [void]
       def composed_of(*attributes, default: nil)
         attributes.each do |attribute|
           compose_setter(attribute, default)
