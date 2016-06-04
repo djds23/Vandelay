@@ -27,6 +27,17 @@ module Vandelay
       #     }
       #   end
       #
+      # This could also be used to build a new object
+      #
+      #   class CarBuilder
+      #     include Vandelay::Buildable
+      #     composed_of :wheels, :doors
+      #
+      #     def get_car
+      #       Car.new(build)
+      #     end
+      #   end
+      #
       # @return [Hash] filled with attributes and set values
       def build
         attribute_hash
