@@ -1,13 +1,10 @@
 describe Vandelay::Buildable do
   let(:builder_class) { Class.new do
       include Vandelay::Buildable
-      composed_of :wheels,
-                  :doors,
-                  :engine,
-                  :gasoline,
-                  :seatbelts
+      composed_of :engine,
+                  :doors
 
-      composed_of :stero, default: :cassette_player
+      composed_of :stereo, default: :cassette_player
     end
   }
 
@@ -15,11 +12,8 @@ describe Vandelay::Buildable do
 
   describe '#composed_of' do
     it 'adds setters to class' do
-      expect(car_builder).to respond_to :set_wheels
-      expect(car_builder).to respond_to :set_doors
       expect(car_builder).to respond_to :set_engine
-      expect(car_builder).to respond_to :set_gasoline
-      expect(car_builder).to respond_to :set_seatbelts
+      expect(car_builder).to respond_to :set_doors
     end
   end
 
@@ -31,16 +25,38 @@ describe Vandelay::Buildable do
 
   describe '#build' do
     it 'returns the attributes set on the builder' do
-      car_builder.set_wheels(4)
-
       expect(car_builder.build).to eq({
-        wheels: 4,
         doors: nil,
         engine: nil,
-        gasoline: nil,
-        seatbelts: nil,
         stereo: :cassette_player
       })
+    end
+
+    context 'does not over write defaults from other builders' do
+      let(:other_builder_class) { Class.new do
+          include Vandelay::Buildable
+          composed_of :engine,
+                      :doors
+
+          composed_of :stereo, default: :mp3
+        end
+      }
+
+      let(:other_car_builder) { other_builder_class.new }
+
+      it 'does not overwrite the different defaults' do
+        expect(car_builder.build).to eq({
+          doors: nil,
+          engine: nil,
+          stereo: :cassette_player
+        })
+
+        expect(other_car_builder.build).to eq({
+          doors: nil,
+          engine: nil,
+          stereo: :mp3
+        })
+      end
     end
   end
 end

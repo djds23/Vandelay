@@ -1,16 +1,13 @@
 module Vandelay
   module Buildable
     def self.included(base)
+
+      # Set default values on the base class so buildables
+      #  do not over write each other's defaults.
       base.send :class_variable_set, :@@_internal_hash, {}
       base.define_singleton_method(:__set_default) do |attribute, default|
-        puts self.send(:class_variable_get, :@@_internal_hash)
         self.send(:class_variable_get, :@@_internal_hash)[attribute] = default
       end
-      base.instance_eval <<-RUBY
-        def attribute_hash
-          self.send(:class_variable_get, :@@_internal_hash)
-        end
-      RUBY
 
       base.send :include, InstanceMethods
       base.extend ClassMethods
@@ -32,11 +29,14 @@ module Vandelay
       #
       # @return [Hash] filled with attributes and set values
       def build
-        puts self
         attribute_hash
       end
 
       private
+      def attribute_hash
+        @@_internal_hash ||= {}
+      end
+
       def update_attribute_hash(attribute, value)
         attribute_hash[attribute] = value
       end
