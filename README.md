@@ -22,7 +22,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'vandelay'
+
+class ToDoBuilder
+  include Vandelay::Buildable
+
+  composed_of :text,
+              :title,
+              :completed_at
+
+  composed_of :created_at, default: Time.now.iso8601
+end
+
+new_todo = ToDoBuilder.new
+
+new_todo.set_title('Write a ruby package')
+new_todo.set_text('Ruby is fun to write, so why not write a gem?')
+new_todo.set_completed_at(Time.now.iso8601)
+```
 
 ## Development
 
@@ -32,5 +50,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/vandelay.
+Bug reports and pull requests are welcome on GitHub at https://github.com/djds23/vandelay.
 
