@@ -1,8 +1,8 @@
 # Vandelay
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/vandelay`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Build Status](https://travis-ci.org/djds23/Vandelay.svg?branch=master)](https://travis-ci.org/djds23/Vandelay)
 
-TODO: Delete this and the text above, and describe your gem
+This is one implementation of the [Builder Pattern](https://en.wikipedia.org/wiki/Builder_pattern) in the Ruby programming language. This is primarily used for composing objects to transport a set of data to a receiver with a specific payload. The advantage of using a builder over a plain Hash is using explicit methods to set required fields, and getting a common way to present your data to the receiver. By default, `.build` will transform your data into a hash, but you can override this method to create your preferred format.
 
 ## Installation
 

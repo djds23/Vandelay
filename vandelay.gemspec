@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dean.silfen@gmail.com"]
 
   spec.summary       = %q{An implmentation of the builder pattern for lightweight transport objects}
-  spec.description   = %q{An implmentation of the builder pattern for lightweight transport objects}
+  spec.description   = %q{This is one implementation of the [Builder Pattern](https://en.wikipedia.org/wiki/Builder_pattern) in the Ruby programming language. This is primarily used for composing objects to transport a set of data to a receiver with a specific payload. The advantage of using a builder over a plain Hash is using explicit methods to set required fields, and getting a common way to present your data to the receiver. By default, `.build` will transform your data into a hash, but you can override this method to create your preferred format.}
   # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
