@@ -59,12 +59,19 @@ module Vandelay
       # Accepts a default argument that will be used if no value is set.
       #
       # @param [Array] attributes fields that ought to be set on the builder
-      # @option [Object] default
+      # @param [Object] default the default value for all passed attributes
       # @return [void]
       def composed_of(*attributes, default: nil)
         attributes.each do |attribute|
           compose_setter(attribute, default)
         end
+      end
+
+      # Stub for documentation
+      #
+      # @param [Symbol] attribute fields built in the internal hash
+      # @param [Object] default the default value for those fields
+      def __set_default
       end
 
       private
