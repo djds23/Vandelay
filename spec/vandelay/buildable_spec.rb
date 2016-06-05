@@ -1,16 +1,16 @@
 describe Vandelay::Buildable do
   let(:builder_class) { Class.new do
       include Vandelay::Buildable
-      composed_of :engine,
+      made_of :engine,
                   :doors
 
-      composed_of :stereo, default: :cassette_player
+      made_of :stereo, default: :cassette_player
     end
   }
 
   let(:car_builder) { builder_class.new }
 
-  describe '#composed_of' do
+  describe '#made_of' do
     it 'adds setters to class' do
       expect(car_builder).to respond_to :set_engine
       expect(car_builder).to respond_to :set_doors
@@ -35,10 +35,10 @@ describe Vandelay::Buildable do
     context 'does not over write defaults from other builders' do
       let(:other_builder_class) { Class.new do
           include Vandelay::Buildable
-          composed_of :engine,
+          made_of :engine,
                       :doors
 
-          composed_of :stereo, default: :mp3
+          made_of :stereo, default: :mp3
         end
       }
 
@@ -62,7 +62,7 @@ describe Vandelay::Buildable do
     context 'subclassed builders' do
       let(:subclassed_builder) {
         class SubBuilder < builder_class
-          composed_of :stereo, default: :sirius_xm
+          made_of :stereo, default: :sirius_xm
         end
 
         SubBuilder

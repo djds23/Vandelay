@@ -28,11 +28,11 @@ require 'vandelay'
 class ToDoBuilder
   include Vandelay::Buildable
 
-  composed_of :text,
+  made_of :text,
               :title,
               :completed_at
 
-  composed_of :created_at, default: Time.now.iso8601
+  made_of :created_at, default: Time.now.iso8601
 end
 
 new_todo = ToDoBuilder.new

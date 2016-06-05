@@ -31,7 +31,7 @@ module Vandelay
       #
       #   class CarBuilder
       #     include Vandelay::Buildable
-      #     composed_of :wheels, :doors
+      #     made_of :wheels, :doors
       #
       #     def get_car
       #       Car.new(build)
@@ -61,7 +61,7 @@ module Vandelay
       # @param [Array] attributes fields that ought to be set on the builder
       # @param [Object] default the default value for all passed attributes
       # @return [void]
-      def composed_of(*attributes, default: nil)
+      def made_of(*attributes, default: nil)
         attributes.each do |attribute|
           compose_setter(attribute, default)
         end
