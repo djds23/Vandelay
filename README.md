@@ -1,4 +1,4 @@
-# Vandelay
+# vandelay
 
 [![Build Status](https://travis-ci.org/djds23/Vandelay.svg?branch=master)](https://travis-ci.org/djds23/Vandelay)
 
@@ -22,6 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
+### Basic Pointers
+* `made_of` creates setters for that field, and optionally accepts a default value with the `default` optional parameters.
+* use/override the `build` method to create a hash with all `made_of` arguments.
+* [See full documentation here.](http://www.rubydoc.info/github/djds23/vandelay/master)
+
 ```ruby
 require 'vandelay'
 
@@ -29,17 +34,24 @@ class ToDoBuilder
   include Vandelay::Buildable
 
   made_of :text,
-              :title,
-              :completed_at
+          :title,
+          :completed_at
 
-  made_of :created_at, default: Time.now.iso8601
+  made_of :due_at, default: (Time.now + 1.week.from_now).iso8601
+
+  def build
+    params = super
+    ToDo.new(params)
+  end
 end
 
-new_todo = ToDoBuilder.new
+todo_builder = ToDoBuilder.new
 
-new_todo.set_title('Write a ruby package')
-new_todo.set_text('Ruby is fun to write, so why not write a gem?')
-new_todo.set_completed_at(Time.now.iso8601)
+todo_builder.set_title('Write a ruby package')
+todo_builder.set_text('Ruby is fun to write, so why not write a gem?')
+todo_builder.set_completed_at(Time.now.iso8601)
+
+new_todo = todo_builder.build
 ```
 
 ## Development

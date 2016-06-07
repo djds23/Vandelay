@@ -1,11 +1,14 @@
 describe Vandelay::Buildable do
-  let(:builder_class) { Class.new do
+  let(:builder_class) {
+    class CarBuilder
       include Vandelay::Buildable
       made_of :engine,
-                  :doors
+              :doors
 
       made_of :stereo, default: :cassette_player
     end
+
+    CarBuilder
   }
 
   let(:car_builder) { builder_class.new }
@@ -33,13 +36,16 @@ describe Vandelay::Buildable do
     end
 
     context 'does not over write defaults from other builders' do
-      let(:other_builder_class) { Class.new do
+      let(:other_builder_class) {
+        class NewCarBuilder
           include Vandelay::Buildable
           made_of :engine,
-                      :doors
+                  :doors
 
           made_of :stereo, default: :mp3
         end
+
+        NewCarBuilder
       }
 
       let(:other_car_builder) { other_builder_class.new }
